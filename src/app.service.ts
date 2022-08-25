@@ -11,7 +11,7 @@ export class AppService {
   }
 
   public async detectFibSequence(str: string){
-    const arrOfNumbers = str.split('').map(item => +item)
+    const arrOfNumbers = str.split(',').map(item => +item)
     const isCorrectSequence = this.checkCorrectSequence(arrOfNumbers)
     let reverseStr;
     if(isCorrectSequence){
@@ -44,17 +44,16 @@ export class AppService {
   }
 
   private async saveToDB(string: string, isCorrectSequence: boolean){
-    const createdLog = new this.logModel({string, isCorrectSequence, date: Date.now()})
+    const createLog = new this.logModel({string, isCorrectSequence, date: Date.now()})
 
-   const createdLog2 = await createdLog.save()
-    console.log(createdLog2, 'createLog2')
+   const createdLog = await createLog.save()
+    console.log(createdLog, 'createLog')
   }
 
     async getAllFibSequences() {
       const allValues = await this.logModel.find()
       console.log(allValues)
-      const positiveValues = allValues.filter(item => !item.isCorrectSequence)
-      return positiveValues
+      return allValues
     }
 
     async getAllCorrectSequences() {

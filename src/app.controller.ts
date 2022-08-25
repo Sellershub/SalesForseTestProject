@@ -13,12 +13,14 @@ export class AppController {
     await this.appService.detectFibSequence(query);
     return 'created a new object in database with query' + query
   }
-  @Get('get')
+
+  @Get('all')
   async getAllFibSequences(){
     return  this.appService.getAllFibSequences()
     
   }
-  @Get('correctseq')
+
+  @Get('correct')
 async getAllCorrectSequences(){
     return await this.appService.getAllCorrectSequences()
     
