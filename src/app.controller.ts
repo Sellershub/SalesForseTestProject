@@ -18,6 +18,11 @@ export class AppController {
     return  this.appService.getAllFibSequences()
     
   }
-  
+  @Get('correctseq')
+async getAllCorrectSequences(){
+    return await this.appService.getAllCorrectSequences()
+    
+  }
+
 }
 

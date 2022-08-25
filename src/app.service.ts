@@ -57,9 +57,10 @@ export class AppService {
       return positiveValues
     }
 
-    async getCorrectSequence() {
-      const correctValue = await this.logModel.find()
-      const correctSequence = correctValue.filter(item => item.isCorrectSequence === true)
-      return correctSequence
-    }
+    async getAllCorrectSequences() {
+      const allValues = await this.logModel.find()
+      console.log(allValues)
+      const positiveValues = allValues.filter(item => item.isCorrectSequence = true)
+      return positiveValues
+}
 }
