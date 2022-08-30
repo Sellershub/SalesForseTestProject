@@ -1,6 +1,7 @@
 import {Controller, Get, Post, Query} from '@nestjs/common';
-import { sequenceEqual } from 'rxjs';
 import { AppService } from './app.service';
+import {LogInterface} from "./log.interface";
+
 
 @Controller()
 export class AppController {
@@ -15,13 +16,13 @@ export class AppController {
   }
 
   @Get('all')
-  async getAllFibSequences(){
+  async getAllFibSequences(): Promise<LogInterface[]>{
     return  this.appService.getAllFibSequences()
     
   }
 
   @Get('correct')
-async getAllCorrectSequences(){
+async getAllCorrectSequences(): Promise<LogInterface[]>{
     return await this.appService.getAllCorrectSequences()
     
   }

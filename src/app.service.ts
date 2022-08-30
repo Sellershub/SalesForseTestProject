@@ -24,7 +24,7 @@ export class AppService {
 
   }
 
-  private checkCorrectSequence(arrOfNumbers: number[]){
+  private checkCorrectSequence(arrOfNumbers: number[]): boolean{
     for(let i = 2; i < arrOfNumbers.length; i++){
       if(
         arrOfNumbers[i] == arrOfNumbers[i-1] + arrOfNumbers[i - 2]
@@ -34,31 +34,25 @@ export class AppService {
     return true
   }
 
-  private reverseString(arrOfNumbers: number[]) {
+  private reverseString(arrOfNumbers: number[]): string  {
     let reverseStr = ''
     for(let i = arrOfNumbers.length - 1; i >= 0; i--){
       reverseStr += arrOfNumbers[i]
     }
-    console.log(reverseStr,'reverstr')
     return reverseStr
   }
 
-  private async saveToDB(string: string, isCorrectSequence: boolean){
-    const createLog = new this.logModel({string, isCorrectSequence, date: Date.now()})
-
-   const createdLog = await createLog.save()
-    console.log(createdLog, 'createLog')
+  private async saveToDB(string: string, isCorrectSequence: boolean): Promise<LogInterface>{
+    const createdLog = new this.logModel({string, isCorrectSequence, date: Date.now()})
+    console.log(createdLog, 'createdLog')
+    return createdLog.save()
   }
-
-    async getAllFibSequences() {
-      const allValues = await this.logModel.find()
-      console.log(allValues)
-      return allValues
+    async getAllFibSequences(): Promise<LogInterface[]>{
+      return this.logModel.find()
     }
 
-    async getAllCorrectSequences() {
+    async getAllCorrectSequences(): Promise<LogInterface[]> {
       const allValues = await this.logModel.find()
-      console.log(allValues)
       const positiveValues = allValues.filter(item => item.isCorrectSequence = true)
       return positiveValues
 }
